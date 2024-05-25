@@ -7,51 +7,78 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
             padding: 20px;
+            text-align: center;
         }
         h1 {
-            color: #333;
+            margin: 0;
         }
-        p {
-            color: #666;
+        main {
+            flex: 1;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        #chat-window {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+        }
+        .user-message {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .gpt-message {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        footer {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
         }
         input {
             padding: 10px;
-            width: 300px;
-            margin-bottom: 10px;
+            width: calc(100% - 120px);
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
         button {
             padding: 10px 20px;
-        }
-        #chat-window {
-            margin-top: 20px;
-            text-align: left;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px solid #ccc;
-            padding: 10px;
-            height: 300px;
-            overflow-y: scroll;
-        }
-        .user-message {
-            color: blue;
-            margin-bottom: 5px;
-        }
-        .gpt-message {
-            color: green;
-            margin-bottom: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>UltimateGPT</h1>
-    <p>ИИ, который знает всё. Наконец-то.</p>
-    <input type="text" id="question" placeholder="Задайте вопрос">
-    <br>
-    <button onclick="askQuestion()">Спросить</button>
-    <div id="chat-window"></div>
+    <header>
+        <h1>UltimateGPT</h1>
+    </header>
+    <main>
+        <div id="chat-window"></div>
+    </main>
+    <footer>
+        <input type="text" id="question" placeholder="Задайте вопрос">
+        <button onclick="askQuestion()">Спросить</button>
+    </footer>
 
     <script>
         function askQuestion() {
