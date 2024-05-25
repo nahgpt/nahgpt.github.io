@@ -24,40 +24,61 @@
         button {
             padding: 10px 20px;
         }
-        #response {
+        #chat-window {
             margin-top: 20px;
-            font-weight: bold;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 300px;
+            overflow-y: scroll;
+        }
+        .user-message {
+            color: blue;
+            margin-bottom: 5px;
+        }
+        .gpt-message {
+            color: green;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <h1>UltimateGPT</h1>
-    <p>The AGI has been finally reached.</p>
-    <input type="text" id="question" placeholder="Ваш вопрос...">
+    <p>ИИ, который знает всё. Наконец-то.</p>
+    <input type="text" id="question" placeholder="Задайте вопрос">
     <br>
-    <button onclick="askQuestion()">Задать</button>
-    <div id="response"></div>
+    <button onclick="askQuestion()">Спросить</button>
+    <div id="chat-window"></div>
 
     <script>
         function askQuestion() {
             const question = document.getElementById('question').value;
-            const response = document.getElementById('response');
+            const chatWindow = document.getElementById('chat-window');
             
-            response.innerHTML = 'Thinking...';
+            chatWindow.innerHTML += `<div class="user-message">Вы: ${question}</div>`;
+            chatWindow.innerHTML += '<div class="gpt-message">UltimateGPT: Думаю...</div>';
+            chatWindow.scrollTop = chatWindow.scrollHeight;
             
             setTimeout(() => {
-                response.innerHTML = '';
+                const gptMessage = chatWindow.lastElementChild;
+                gptMessage.innerHTML = 'UltimateGPT: ';
                 const answer = 'Иди нахуй.';
                 let i = 0;
                 const printEffect = setInterval(() => {
                     if (i < answer.length) {
-                        response.innerHTML += answer.charAt(i);
+                        gptMessage.innerHTML += answer.charAt(i);
                         i++;
                     } else {
                         clearInterval(printEffect);
+                        chatWindow.scrollTop = chatWindow.scrollHeight;
                     }
                 }, 100);
             }, 1000);
+            
+            document.getElementById('question').value = '';
         }
     </script>
 </body>
