@@ -21,25 +21,27 @@
             text-align: center;
             max-width: 800px;
             margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
         }
         h1 {
             margin: 0;
         }
         main {
             flex: 1;
-            padding: 20px;
             max-width: 800px;
             margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
         }
         #chat-window {
             background-color: white;
             border-radius: 5px;
             padding: 20px;
-            margin-bottom: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
             height: 400px;
-            width: 760px;
+            width: 100%;
             box-sizing: border-box;
         }
         .user-message {
@@ -59,6 +61,8 @@
             align-items: center;
             max-width: 800px;
             margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
         }
         input {
             padding: 10px;
@@ -83,13 +87,21 @@
     </header>
     <main>
         <div id="chat-window"></div>
+        <footer>
+            <input type="text" id="question" placeholder="Задайте вопрос" onkeydown="if (event.keyCode === 13) askQuestion()">
+            <button onclick="askQuestion()">Спросить</button>
+        </footer>
     </main>
-    <footer>
-        <input type="text" id="question" placeholder="Задайте вопрос" onkeydown="if (event.keyCode === 13) askQuestion()">
-        <button onclick="askQuestion()">Спросить</button>
-    </footer>
 
     <script>
+        // Load chat history from local storage
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatHistory = localStorage.getItem('chatHistory');
+            if (chatHistory) {
+                document.getElementById('chat-window').innerHTML = chatHistory;
+            }
+        });
+
         function askQuestion() {
             const question = document.getElementById('question').value;
             const chatWindow = document.getElementById('chat-window');
@@ -110,6 +122,8 @@
                     } else {
                         clearInterval(printEffect);
                         chatWindow.scrollTop = chatWindow.scrollHeight;
+                        // Save chat history to local storage
+                        localStorage.setItem('chatHistory', chatWindow.innerHTML);
                     }
                 }, 100);
             }, 1500);
