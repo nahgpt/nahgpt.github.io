@@ -19,6 +19,8 @@
             color: white;
             padding: 20px;
             text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
         }
         h1 {
             margin: 0;
@@ -37,7 +39,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
             height: 400px;
-            width: 100%;
+            width: 760px;
             box-sizing: border-box;
         }
         .user-message {
@@ -83,7 +85,7 @@
         <div id="chat-window"></div>
     </main>
     <footer>
-        <input type="text" id="question" placeholder="Задайте вопрос">
+        <input type="text" id="question" placeholder="Задайте вопрос" onkeydown="if (event.keyCode === 13) askQuestion()">
         <button onclick="askQuestion()">Спросить</button>
     </footer>
 
@@ -110,7 +112,7 @@
                         chatWindow.scrollTop = chatWindow.scrollHeight;
                     }
                 }, 100);
-            }, 1000);
+            }, 1500);
             
             document.getElementById('question').value = '';
         }
